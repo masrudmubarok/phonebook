@@ -5,7 +5,7 @@ const { DataTypes } = Sequelize;
 
 const Contact = db.define('contacts',{
     name: DataTypes.STRING,
-    phone: DataTypes.INTEGER,
+    phone: DataTypes.STRING,
     email: DataTypes.STRING,
     gender: DataTypes.STRING
 }, {
