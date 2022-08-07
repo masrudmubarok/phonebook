@@ -1,10 +1,15 @@
-import UserList from './component/ContactList';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import ContactList from './component/ContactList';
+import AddContact from './component/AddContact';
 
 function App() {
   return (
-    <div>
-      <UserList/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ContactList/>}/>
+        <Route path="add" element={<AddContact/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
