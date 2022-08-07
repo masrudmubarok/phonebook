@@ -1,7 +1,9 @@
+import UserList from './component/ContactList';
+
 function App() {
   return (
     <div>
-      <h1>Lorem ipsum sit dolor amet.</h1>
+      <UserList/>
     </div>
   );
 }
