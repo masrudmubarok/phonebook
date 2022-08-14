@@ -1,19 +1,24 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const AddContact = () => {
+const EditContact = () => {
     
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [gender, setGender] = useState("Male");
     const navigate = useNavigate();
+    const { id } = useParams();
 
-    const saveContact = async (e) => {
+    useEffect(() => {
+        getContactById();
+    }, []);
+
+    const updateContact = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/contacts',{
+            await axios.patch(`http://localhost:5000/contacts/${id}`,{
                 name,
                 phone,
                 email,
@@ -25,10 +30,18 @@ const AddContact = () => {
         }
     }
 
+    const getContactById = async () => {
+        const response = await axios.get(`http://localhost:5000/contacts/${id}`);
+        setName(response.data.name);
+        setPhone(response.data.phone);
+        setEmail(response.data.email);
+        setGender(response.data.gender);
+    }
+
     return (
         <div className="columns mt-5 is-centered">
             <div className="column is-half">
-                <form onSubmit={saveContact}>
+                <form onSubmit={updateContact}>
                     <div className="field">
                         <label className="label">Name</label>
                         <div className="control">
@@ -59,7 +72,7 @@ const AddContact = () => {
                         </div>
                     </div>
                     <div className="field">
-                        <button type="submit" className="button is-success">Save</button>
+                        <button type="submit" className="button is-success">Update</button>
                     </div>
                 </form>
             </div>
@@ -67,4 +80,4 @@ const AddContact = () => {
     )
 }
 
-export default AddContact
+export default EditContact
