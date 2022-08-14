@@ -14,6 +14,15 @@ const ContactList = () => {
         setContact(response.data);
     }
 
+    const deleteContact = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/contacts/${id}`);
+            getContacts();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
   return (
     <div className="columns mt-5 is-centered">
         <div className="column is-half">
@@ -39,7 +48,7 @@ const ContactList = () => {
                             <td>{contact.gender}</td>
                             <td>
                                 <Link to={`edit/${contact.id}`} className="button is-small is-info">Edit</Link>
-                                <button className="button is-small is-danger">Delete</button>
+                                <button onClick={() => deleteContact(contact.id)} className="button is-small is-danger">Delete</button>
                             </td>
                         </tr>
                     ))}
